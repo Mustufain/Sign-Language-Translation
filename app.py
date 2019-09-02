@@ -1,13 +1,26 @@
-from flask import Flask
-from home.views import home_view
+from flask import Flask, render_template, Response
+from camera import VideoCamera
+app = Flask(__name__)
 
-def create_app(config_file):
-	app = Flask(__name__)  # Create application object
-	app.config.from_pyfile(config_file)  # Configure application with settings file, not strictly necessary
-	app.register_blueprint(home_view)  # Register url's so application knows what to do
-	return app
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+def video_generator(camera):
+    """Video streaming generator function."""
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(video_generator(VideoCamera()), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 if __name__ == '__main__':
-	app = create_app('settingslocal.py')  # Create application with our config file
-	app.run()  # Run our application
 
+	app.run()
