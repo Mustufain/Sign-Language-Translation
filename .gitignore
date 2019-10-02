@@ -4,3 +4,7 @@
 *.pyc
 /.idea/*
 .DS_Store
+*.h5
+*.zip
+/export_model/variables/*
+*.pb
