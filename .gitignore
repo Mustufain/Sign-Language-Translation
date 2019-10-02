@@ -1,9 +1,5 @@
 /__pycache__/*
-/data/*
-/pre_train_models/*
 *.pyc
 /.idea/*
 .DS_Store
-*.h5
-*.zip
-/export_model/*
+/data/*
