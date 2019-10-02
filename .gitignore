@@ -6,5 +6,4 @@
 .DS_Store
 *.h5
 *.zip
-/export_model/variables/*
-*.pb
+/export_model/*
