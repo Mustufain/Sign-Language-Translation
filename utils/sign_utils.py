@@ -18,11 +18,13 @@ class DataPreperation(object):
         self.validation_ratio = 0.1
         self.test_ratio = 0.1
         self.data_folder = [x for x in os.listdir(self.base_path)[1:] if x == data][0]
-        self.n_classes = len(os.listdir(self.base_path+self.data_folder))
+        self.n_classes = len(os.listdir(self.base_path+self.data_folder)[1:]) # due to .DS_Store
 
     def read_files(self):
         data = []
         sub_folders = os.listdir(self.base_path + str(self.data_folder))
+        if '.DS_Store' in sub_folders:
+            sub_folders = sub_folders[1:]
         for folder in sub_folders:
             signs = os.listdir(self.base_path + str(self.data_folder) + '/' + folder)
             for sign in signs:
@@ -42,6 +44,7 @@ class DataPreperation(object):
         training = data[:train_split]
         validation = data[train_split:valid_index]
         testing = data[valid_index:test_index]
+        self.data_sanity_check(train=training, valid=validation, test=testing)
         return training, validation, testing
 
     def create_data_set(self, data, path):
@@ -125,3 +128,16 @@ class DataPreperation(object):
 
     def get_base_path(self):
         return self.base_path
+
+    def data_sanity_check(self, train, valid, test):
+        """
+
+        :param train:
+        :param valid:
+        :param test:
+        :return:
+        """
+
+        assert len(list(set(train).intersection(valid))) == 0
+        assert len(list(set(train).intersection(test))) == 0
+        assert len(list(set(test).intersection(valid))) == 0
