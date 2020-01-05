@@ -16,6 +16,8 @@ import os
 
 # ! pip install -U --force-reinstall --no-dependencies git+https://github.com/datumbox/keras@bugfix/trainable_bn
 #  tensorboard --logdir="./logs/inception_logs"
+# test accuracy: 0.980
+# test accuracy of mobilenet : 0.978
 
 class CustomInceptionV3(object):
 
@@ -25,13 +27,13 @@ class CustomInceptionV3(object):
         self.checkpoint_path = 'checkpoint_model/inceptionv3.h5'
         self.export_path = 'export_model/'
         self.batch_size = 64
-        self.epochs = 1
+        self.epochs = 100
         self.n_classes = 10
         self.lr = 0.0001
         self.visualization_folder = 'visualization/'
         self.version = version
 
-        # tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+        tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
     def load_dataset(self):
         train_dataset = h5py.File(self.base_dir + 'train.h5', 'r')

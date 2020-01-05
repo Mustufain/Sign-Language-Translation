@@ -2,6 +2,7 @@ import sys
 from utils.sign_utils import DataPreperation
 from experiments.inception import CustomInceptionV3
 import os
+import argparse
 
 if __name__ == "__main__":
 
@@ -16,7 +17,7 @@ if __name__ == "__main__":
             print('trainning size', len(training))
             print('validation size', len(validation))
             print('testing size', len(testing))
-            train_path =  data_prepare.get_train_path()
+            train_path = data_prepare.get_train_path()
             valid_path = data_prepare.get_valid_path()
             test_path = data_prepare.get_test_path()
 
@@ -50,13 +51,12 @@ if __name__ == "__main__":
             data_prepare.save_id(path=valid_path, fname='valid_id.json')
             data_prepare.save_id(path=test_path, fname='test_id.json')
 
-        if argument == 'inception':
+        if argument == 'train':
             base_dir = os.path.abspath('.') + '/data/'
             inceptionv3 = CustomInceptionV3(base_dir=base_dir, version=1)
             inceptionv3.run()
             inceptionv3.export_model()
 
-        elif argument == 'inception':
-            print ('inception model')
     else:
-        print ('start demo')
+        print('start demo')
+
