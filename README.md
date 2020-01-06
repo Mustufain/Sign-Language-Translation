@@ -1,6 +1,10 @@
 # Sign-Language-Translation
 
-One Paragraph of project description goes here
+The data contains 10 letters 0 - 9 in American Sign Language. The aim of this project 
+is to use Transfer learning using Inceptionv3 model to recognize the digits from a video feed. Due to the limitation of 
+the resources only 10 digits were used in training the model. It can be further extended
+to include alphabets.   
+
 
 ## Usage
 
@@ -10,7 +14,7 @@ One Paragraph of project description goes here
 
 ## Prepare data 
 
-```python sign_langauge_detection.py prepare_data ```
+```python app.py prepare_data ```
 
 Prepares data for training the model. It would output
 the following files in the **/data** folder. 
@@ -32,11 +36,11 @@ Distribution of data:
 3. Test set : 10%
 
 ## Training your own model 
-```python sign_langauge_detection.py train ```
+```python app.py train ```
 
 Make sure all the relevant files are in **/data** folder. 
 
-NOTE: Training our own InceptionV3 can be computationally expensive on GPU. I used Google Colab GPU to train
+NOTE: Training our own InceptionV3 can be computationally expensive on CPU. I used Google Colab GPU to train
 the model on 100 epochs. 
 
 After training, it would output model checkpoint file in **/checkpoint_model** folder. 
@@ -53,7 +57,12 @@ using the following command:
 
 The demo can be started using the following command:
 
-```python sign_langauge_detection.py``` 
+```python app.py``` 
+
+Place you hand in the green box in the video feed for the translation. 
+
+The application uses Background subtraction to segment the hand from the image. The segmented
+image is then sent to inception model which returns predictions as digit. 
 
 ## Credits 
 

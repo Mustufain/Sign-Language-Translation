@@ -9,7 +9,6 @@ import h5py
 import json
 
 
-
 class DataPreperation(object):
 
     def __init__(self, base_path, data):
